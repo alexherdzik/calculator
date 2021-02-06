@@ -13,7 +13,18 @@ const btnOps = document.querySelectorAll('.btn-op');
 
 btnOps.forEach(btn => {
     btn.addEventListener('click', event => {
-        calculator.a = +calculator.display;
+        if (!isFinite(calculator.a) && isFinite(calculator.solution)) {
+            calculator.a = calculator.solution;
+            calculator.b = +calculator.display;
+            calculator.solution = operate(calculator.operator, calculator.a, calculator.b)
+            calculator.a = null;
+            calculator.b = null;
+            calculator.operator = null;
+            calculator.display = '';
+            calculatorDisplay.textContent = calculator.solution;
+        } else {
+            calculator.a = +calculator.display;
+        }
         calculator.operator = event.target.textContent;
         calculator.display = '';
         calculatorDisplay.textContent += ` ${event.target.textContent} `;
@@ -23,7 +34,12 @@ btnOps.forEach(btn => {
 const btnEquals = document.querySelector('.btn-equals');
 btnEquals.addEventListener('click', () => {
     calculator.b = +calculator.display;
-    calculatorDisplay.textContent = operate(calculator.operator, calculator.a, calculator.b);
+    calculator.solution = operate(calculator.operator, calculator.a, calculator.b)
+    calculator.a = null;
+    calculator.b = null;
+    calculator.operator = null;
+    calculator.display = '';
+    calculatorDisplay.textContent = calculator.solution;
 });
 
 const btnClear = document.querySelector('.btn-clear');
@@ -32,6 +48,7 @@ btnClear.addEventListener('click', () => {
     calculator.a = null;
     calculator.b = null;
     calculator.operator = null;
+    calculator.solution = null;
     calculatorDisplay.textContent = '';
 });
 
@@ -39,7 +56,8 @@ const calculator = {
     display: '',
     a: null,
     b: null,
-    operator: null
+    operator: null,
+    solution: null,
 }
 
 function add(a, b) {
@@ -62,16 +80,16 @@ function divide(a, b) {
 function operate(operator, a, b) {
     switch (operator) {
         case '+':
-            return add(a,b);
+            return add(a, b);
             break;
         case '-':
-            return subtract(a,b);
+            return subtract(a, b);
             break;
         case '*':
-            return multiply(a,b);
+            return multiply(a, b);
             break;
         case '/':
-            return divide(a,b);
+            return divide(a, b);
             break;
         default:
             return 0;
