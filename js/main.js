@@ -13,15 +13,15 @@ const btnOps = document.querySelectorAll('.btn-op');
 
 btnOps.forEach(btn => {
     btn.addEventListener('click', event => {
-        if (!isFinite(calculator.a) && isFinite(calculator.solution)) {
+        if (!calculator.a && calculator.solution) {
             calculator.a = calculator.solution;
-            calculator.b = +calculator.display;
+            /*calculator.b = +calculator.display;
             calculator.solution = operate(calculator.operator, calculator.a, calculator.b)
             calculator.a = null;
             calculator.b = null;
             calculator.operator = null;
             calculator.display = '';
-            calculatorDisplay.textContent = calculator.solution;
+            calculatorDisplay.textContent = calculator.solution;*/
         } else {
             calculator.a = +calculator.display;
         }
