@@ -15,13 +15,9 @@ btnOps.forEach(btn => {
     btn.addEventListener('click', event => {
         if (!calculator.a && calculator.solution) {
             calculator.a = calculator.solution;
-            /*calculator.b = +calculator.display;
-            calculator.solution = operate(calculator.operator, calculator.a, calculator.b)
-            calculator.a = null;
-            calculator.b = null;
-            calculator.operator = null;
-            calculator.display = '';
-            calculatorDisplay.textContent = calculator.solution;*/
+        } else if (calculator.a && calculator.display) {
+            calculator.a = operate(calculator.operator, calculator.a, +calculator.display);
+            calculatorDisplay.textContent = calculator.a;
         } else {
             calculator.a = +calculator.display;
         }
